@@ -26,4 +26,16 @@ bool ImportCell1Ds(PolygonalMesh& mesh);
 /// mesh: a PolygonalMesh struct
 /// return the result of the reading, true if is success, false otherwise
 bool ImportCell2Ds(PolygonalMesh& mesh);
+
+
+/// Checks if the edges of the polygon have length different from zero
+/// mesh: a PolygonalMesh struct
+/// return the result of the reading, true if is success, false otherwise
+bool PolygonEdges(PolygonalMesh& mesh);
+
+
+/// Checks if the Area of the polygon is different from zero
+/// mesh: a PolygonalMesh struct
+/// return the result of the reading, true if is success, false otherwise
+bool PolygonArea(PolygonalMesh& mesh);
 }

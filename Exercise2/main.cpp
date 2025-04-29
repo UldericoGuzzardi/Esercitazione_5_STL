@@ -84,5 +84,59 @@ int main()
                                  cell2Ds_properties);
     }
 */
+
+	if(!PolygonEdges(mesh)){
+		cerr << "Errore: almeno un lato ha lunghezza nulla o negativa." << endl;
+	}
+	else {
+		cout << "Tutti i lati hanno lunghezza positiva." << endl;
+	}
+	
+	if(!PolygonArea(mesh)){
+		cerr << "Errore: almeno un poligono ha area nulla negativa." << endl;
+	}
+	else {
+		cout << "Tutti i poligoni hanno area positiva." << endl;
+	}
+	
+	// controllo manuale per verificare che i marker siano stati letti e salvati correttamente
+    map<unsigned int, list<unsigned int>> MarkerCell0Ds_true = {
+    {1, {0}},
+    {2, {1}},
+    {3, {2}},
+    {4, {3}},
+    {5, {6, 16, 24}},
+    {6, {7, 17, 22, 78}},
+    {7, {8, 20, 23, 52, 59}},
+    {8, {5, 15, 21, 26, 92}}
+    };
+    
+    if ( mesh.MarkerCell0Ds == MarkerCell0Ds_true) {
+        cout << "Marker celle 0D salvati correttamente" << endl;
+    } else {
+        cout << "Errore nei marker delle celle 0D" << endl;
+    }
+    
+    map<unsigned int, list<unsigned int>> MarkerCell1Ds_true = {
+	{5, {8,19,22,28}},
+    {6, {6, 23, 26,126,127}},
+    {7, {14,17,24,79,92, 93}},
+    {8, {11,25,29,30,159,160}},
+    };
+    
+    if ( mesh.MarkerCell1Ds == MarkerCell1Ds_true) {
+        cout << "Marker celle 1D salvati correttamente" << endl;
+    } else {
+        cout << "Errore nei marker delle celle 1D" << endl;
+    }
+    
+    map<unsigned int, list<unsigned int>> MarkerCell2Ds_true = {}; //I marker sono tutti nulli
+    
+    if ( mesh.MarkerCell2Ds == MarkerCell2Ds_true) {
+        cout << "Marker celle 2D salvati correttamente" << endl;
+    } else {
+        cout << "Errore nei marker delle celle 2D" << endl;
+	}
+	
     return 0;  
 }

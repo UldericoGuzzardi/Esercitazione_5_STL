@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 
+using namespace std;
+
 namespace PolygonalLibrary
 {
 bool ImportMesh(PolygonalMesh& mesh)
@@ -228,5 +230,60 @@ bool ImportCell2Ds(PolygonalMesh& mesh)
 
     return true;
 }
+// ***************************************************************************
+bool PolygonEdges(PolygonalMesh& mesh)
+{
+	const double epsilon = 1e-10;
+	for (unsigned int i = 0; i < mesh.NumCell1Ds; ++i) {
+        unsigned int origin_id = mesh.Cell1DsExtrema(0, i);
+        unsigned int end_id = mesh.Cell1DsExtrema(1, i);
+
+        double x1 = mesh.Cell0DsCoordinates(0, origin_id);
+        double y1 = mesh.Cell0DsCoordinates(1, origin_id);
+        double x2 = mesh.Cell0DsCoordinates(0, end_id);
+        double y2 = mesh.Cell0DsCoordinates(1, end_id);
+		
+		
+        double length = sqrt(std::pow(x2 - x1, 2) + pow(y2 - y1, 2));
+        if (length <= epsilon) 		
+            return false;
+    
+    }
+    return true;
+	
+	
+	
+}
+// ***************************************************************************
+bool PolygonArea(PolygonalMesh& mesh)
+{
+	const double epsilon = 1e-10;
+	for (unsigned int i = 0; i < mesh.NumCell2Ds; ++i) {
+        const auto& vertices = mesh.Cell2DsVertices[i];
+        double area = 0.0;
+
+        for (size_t j = 0; j < vertices.size(); ++j) {
+            unsigned int current = vertices[j];
+            unsigned int next = vertices[(j + 1) % vertices.size()];
+
+            double x1 = mesh.Cell0DsCoordinates(0, current);
+            double y1 = mesh.Cell0DsCoordinates(1, current);
+            double x2 = mesh.Cell0DsCoordinates(0, next);
+            double y2 = mesh.Cell0DsCoordinates(1, next);
+
+            area += x1 * y2 - x2 * y1;
+        }
+
+        area = std::fabs(area) / 2.0;
+        if (area <= epsilon) 
+            return false;
+      
+    }
+    return true;
+}
+	
+	
+	
 
 }
+
