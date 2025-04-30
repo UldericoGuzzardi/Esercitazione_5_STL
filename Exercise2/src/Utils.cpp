@@ -233,7 +233,7 @@ bool ImportCell2Ds(PolygonalMesh& mesh)
 // ***************************************************************************
 bool PolygonEdges(PolygonalMesh& mesh)
 {
-	const double epsilon = 1e-10;
+	const double epsilon = 1e-8;
 	for (unsigned int i = 0; i < mesh.NumCell1Ds; ++i) {
         unsigned int origin_id = mesh.Cell1DsExtrema(0, i);
         unsigned int end_id = mesh.Cell1DsExtrema(1, i);
@@ -257,7 +257,7 @@ bool PolygonEdges(PolygonalMesh& mesh)
 // ***************************************************************************
 bool PolygonArea(PolygonalMesh& mesh)
 {
-	const double epsilon = 1e-10;
+	const double epsilon = 1e-16;
 	for (unsigned int i = 0; i < mesh.NumCell2Ds; ++i) {
         const auto& vertices = mesh.Cell2DsVertices[i];
         double area = 0.0;
